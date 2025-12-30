@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken")
-const secreatkey = "expensetracker@#8800^1.0.0"
+const secreatkey = process.env.JWT_SECRET;
+import dotenv from "dotenv";
+dotenv.config();
 function setUser(user) {
      return jwt.sign({
         _id: user._id,
