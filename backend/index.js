@@ -10,7 +10,7 @@ const cookieParser = require('cookie-parser');
 const PORT = 3008;
 app.use(
   cors({
-    origin: 'http://localhost:5175', 
+    origin: ['http://localhost:5175',"https://expense-track-five.vercel.app/"],
     credentials: true,               
   })
 );
