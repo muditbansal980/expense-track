@@ -17,8 +17,32 @@ async function handleaddexpense(req,res){
 }
 async function handlegetexpense(req,res){
     try{
+        const days = req.query.days;
+        // const data = await Expense.find({});
+        if(days==="all"){
+            const data = await Expense.find({});
+            return res.status(200).json(data);
+        }
+        if(days==="0"){
+            const date = new Date();
+            date.setHours(0,0,0,0);
+            const data = await Expense.find({createdAt:{$gte:date}});
+            return res.status(200).json(data);
+        }
+        if(days==="7"){
+            const date = new Date();
+            date.setDate(date.getDate() - 7);
+            const data = await Expense.find({createdAt:{$gte:date}});
+            return res.status(200).json(data);
+        }
+        if(days==="30"){
+            const date = new Date();
+            date.setDate(date.getDate() - 30);
+            const data = await Expense.find({createdAt:{$gte:date}});   
+            return res.status(200).json(data);
+        }
         const data = await Expense.find({});
-        res.status(200).json(data);
+        return res.status(200).json(data);
     } catch (error) {
         res.status(500).json({message: error.message});
     }

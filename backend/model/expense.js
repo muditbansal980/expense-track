@@ -9,7 +9,7 @@ const schema = new mongoose.Schema({
         type:String,
         required:true
     }
-})
+},{timestamps:true})
 
 const Expense = mongoose.model("Expense",schema);
  
