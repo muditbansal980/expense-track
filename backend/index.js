@@ -1,3 +1,4 @@
+require ("dotenv").config();
 const express = require("express")
 const app = express()
 const cors = require("cors")
@@ -17,7 +18,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 // <------------------connection db----------------------->
-connectiondb("mongodb://127.0.0.1:27017/expense-tracker")
+connectiondb(process.env.MONGO_URL)
 app.use("/crud",authmiddleware,crudroute)
 app.use("/user",userroute)
 app.listen(PORT, () => {
