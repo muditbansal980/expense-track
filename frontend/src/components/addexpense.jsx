@@ -27,10 +27,12 @@ export default function AddNote(props) {
 
             });
             if (res.status === 201) {
+                // append the actual created expense returned by backend (so _id exists)
+                const created = await res.json();
                 setTitle("");
                 setPrice("");
                 setDisplay("hidden");
-                props.setnoteslist([...props.noteslist, { "title": title, "price": price }]);
+                props.setnoteslist(prev => [...prev, created]);
             }
             if (res.status === 404) {
                 navigate("/")

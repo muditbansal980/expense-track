@@ -4,11 +4,10 @@ import Loading from "./loading";
 import Datefilter from "./filters/date";
 import BASE_URL from "../../config/api";
 
-export default function mainpage() {
+export default function Mainpage() {
     const [data, setData] = useState([]);
     const [editdata, setEditdata] = useState(null);
     const [loading, setLoading] = useState(false);
-    const editbox = document.getElementById("edit-modal");
     useEffect(() => {
         fetchNotes("all");
     }, []);
@@ -60,20 +59,21 @@ export default function mainpage() {
             });
             if (res.ok) {
                 const updatedData = await res.json();
-                setData(data.map(item => item._id === id ? updatedData : item));
+                setData(prev => prev.map(item => item._id === id ? updatedData : item));
             }
         }
         catch (error) {
             console.error("Error editing expense:", error);
         }
         finally {
-            editbox.style.display = "none";
+            // close modal by clearing edit state (don't mutate DOM directly)
+            setEditdata(null);
         }
     }
     async function handleDelete(id) {
         try {
-            // const res = await fetch(`http://localhost:3008/crud/deleteexpense/${id}`, {
-            const res = await fetch(`https://expense-track-lidg.onrender.com/crud/deleteexpense/${id}`, {
+            // use configured BASE_URL so environments are consistent
+            const res = await fetch(`${BASE_URL}/crud/deleteexpense/${id}`, {
                 method: "DELETE",
                 credentials: "include",
                 headers: {
@@ -81,7 +81,7 @@ export default function mainpage() {
                 }
             });
             if (res.ok) {
-                setData(data.filter(item => item._id !== id));
+                setData(prev => prev.filter(item => item._id !== id));
             }
         } catch (error) {
             console.error("Error deleting expense:", error);
@@ -95,16 +95,16 @@ export default function mainpage() {
             <Navbar noteslist={data} setnoteslist={setData} />
             <Datefilter onFilter={fetchNotes} />
             <div className="bg-amber-950 min-h-screen p-[20px]">
-                {data.map((data) => {
+                {data.map((item) => {
                     return (
-                        <div key={data._id} className="bg-white text-black p-[10px] rounded-[10px] mb-[10px] flex justify-between items-center">
+                        <div key={item._id} className="bg-white text-black p-[10px] rounded-[10px] mb-[10px] flex justify-between items-center">
                             <div>
-                                <h2 className="font-bold text-[20px]">{data.title}</h2>
-                                <p className="mt-[5px]">{data.price}</p>
+                                <h2 className="font-bold text-[20px]">{item.title}</h2>
+                                <p className="mt-[5px]">{item.price}</p>
                             </div>
                             <div className="rounded-[5px] flex gap-[10px] hover:cursor-pointer " >
-                                <button className="p-[5px]  bg-amber-100" onClick={() => setEditdata(data)}>Edit</button>
-                                <button className="p-[5px] bg-amber-100" onClick={() => handleDelete(data._id)}>Delete</button>
+                                <button className="p-[5px]  bg-amber-100" onClick={() => setEditdata(item)}>Edit</button>
+                                <button className="p-[5px] bg-amber-100" onClick={() => handleDelete(item._id)}>Delete</button>
                             </div>
                         </div>
                     )
