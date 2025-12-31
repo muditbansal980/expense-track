@@ -12,7 +12,8 @@ export default function AddNote(props) {
         try {
             setLoading(true);
             // <------------POST request to add note to backend-------------->
-            const res = await fetch("http://localhost:3008/crud/addexpense", {
+            // const res = await fetch("http://localhost:3008/crud/addexpense", {
+            const res = await fetch("https://expense-track-lidg.onrender.com/crud/addexpense", {
                 method: "POST",
                 credentials: "include",
                 headers: {

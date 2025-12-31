@@ -12,7 +12,8 @@ export default function Login() {
         e.preventDefault()
         try{
             setloading(true);
-        const res = await fetch("http://localhost:3008/user/login", {
+        // const res = await fetch("http://localhost:3008/user/login", {
+        const res = await fetch("https://expense-track-lidg.onrender.com/user/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

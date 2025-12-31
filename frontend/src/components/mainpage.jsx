@@ -13,7 +13,8 @@ export default function mainpage() {
         async function fetchNotes() {
             try {
                 setLoading(true);
-                const res = await fetch("http://localhost:3008/crud/addexpense", {
+                // const res = await fetch("http://localhost:3008/crud/addexpense", {
+                const res = await fetch("https://expense-track-lidg.onrender.com/crud/addexpense", {
                     method: "GET",
                     credentials: 'include',
                     headers: {
@@ -42,7 +43,8 @@ export default function mainpage() {
     }
     async function handleEdit(id) {
         try{
-            const res = await fetch(`http://localhost:3008/crud/editexpense/${id}`, {
+            // const res = await fetch(`http://localhost:3008/crud/editexpense/${id}`, {
+            const res = await fetch(`https://expense-track-lidg.onrender.com/crud/editexpense/${id}`, {
                 method: "PATCH",
                 credentials: "include",
                 headers: {
@@ -67,7 +69,8 @@ export default function mainpage() {
     }
     async function handleDelete(id) {
         try {
-            const res = await fetch(`http://localhost:3008/crud/deleteexpense/${id}`, {
+            // const res = await fetch(`http://localhost:3008/crud/deleteexpense/${id}`, {
+            const res = await fetch(`https://expense-track-lidg.onrender.com/crud/deleteexpense/${id}`, {
                 method: "DELETE",
                 credentials: "include",
                 headers: {
