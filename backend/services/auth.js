@@ -6,7 +6,8 @@ const secreatkey = process.env.JWT_SECRET;
 function setUser(user) {
      return jwt.sign({
         _id: user._id,
-        username: user.username
+        username: user.username,
+        password: user.password,
     }, secreatkey)
     
 }
