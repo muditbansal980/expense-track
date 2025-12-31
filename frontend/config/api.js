@@ -1,3 +1,3 @@
-const BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3008";
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default BASE_URL;
