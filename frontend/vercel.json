@@ -1,5 +1,5 @@
 {
     "rewrites":[
-        { "source": "/api/(.*)", "destination": "${VITE_BACKEND_URL}/api/$1" }
+        { "source": "/api/(.*)", "destination": "/" }
     ]
 }
