@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "./loading";
+import BASE_URL from "../../config/api";
 export default function AddNote(props) {
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState("");
@@ -13,7 +14,7 @@ export default function AddNote(props) {
             setLoading(true);
             // <------------POST request to add note to backend-------------->
             // const res = await fetch("http://localhost:3008/crud/addexpense", {
-            const res = await fetch("https://expense-track-lidg.onrender.com/crud/addexpense", {
+            const res = await fetch(`${BASE_URL}/crud/addexpense`, {
                 method: "POST",
                 credentials: "include",
                 headers: {

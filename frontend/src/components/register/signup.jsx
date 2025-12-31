@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import Loading from "../loading"
+import BASE_URL from "../../../config/api";
 export default function Signup() {
     const [username, setusername] = useState("")
     const [password, setpassword] = useState("")
@@ -23,7 +24,7 @@ export default function Signup() {
         try {
             setloading(true);
             // const res = await fetch("http://localhost:3008/user/signup", {
-            const res = await fetch("https://expense-track-lidg.onrender.com/user/signup", {
+            const res = await fetch(`${BASE_URL}/user/signup`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
