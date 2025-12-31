@@ -40,6 +40,9 @@ export default function AddNote(props) {
             if(res.status===406){
                 navigate("/");
             }
+            if(res.status === 400){
+                navigate("/Signup")
+            }
         } catch (error) {
             console.error("Error adding note:", error);
         }
