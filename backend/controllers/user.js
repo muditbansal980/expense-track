@@ -31,9 +31,14 @@ async function handlelogin(req, res) {
 
     try {
         const { username, password } = req.body
-        const data = await User.findOne({ username, password })
-        if (data) {
-            const token = setUser(data)
+        const data = await User.findOne({ username })
+        if (!data) {
+            return res.status(404).send("No such user")
+        }
+        if (!data.password || data.password !== password) {
+            return res.status(404).send("No such user")
+        }
+        const token = setUser(data)
             res.cookie("UID", token, {
                 httpOnly: true,
                 secure: true,
@@ -41,11 +46,9 @@ async function handlelogin(req, res) {
             })
             return res.status(200).send("Login Successful")
         }
-        return res.status(404).send("No such user")
-    }
     catch (err) {
-        return res.send("Error in login")
+            return res.send("Error in login")
+        }
     }
-}
 
 module.exports = { handlesignup, handlelogin }
