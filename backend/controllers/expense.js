@@ -27,22 +27,22 @@ async function handlegetexpense(req,res){
         if(days==="0"){
             const date = new Date();
             date.setHours(0,0,0,0);
-            const data = await Expense.find({createdAt:{$gte:date}});
+            const data = await Expense.find({createdAt:{$gte:date}, createdby:req.user._id});
             return res.status(200).json(data);
         }
         if(days==="7"){
             const date = new Date();
             date.setDate(date.getDate() - 7);
-            const data = await Expense.find({createdAt:{$gte:date}});
+            const data = await Expense.find({createdAt:{$gte:date}, createdby:req.user._id});
             return res.status(200).json(data);
         }
         if(days==="30"){
             const date = new Date();
             date.setDate(date.getDate() - 30);
-            const data = await Expense.find({createdAt:{$gte:date}});   
+            const data = await Expense.find({createdAt:{$gte:date}, createdby:req.user._id});   
             return res.status(200).json(data);
         }
-        const data = await Expense.find({});
+        const data = await Expense.find({createdby:req.user._id});
         return res.status(200).json(data);
     } catch (error) {
         res.status(500).json({message: error.message});
