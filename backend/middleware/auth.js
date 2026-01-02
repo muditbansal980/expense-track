@@ -9,6 +9,7 @@ function authmiddleware(req,res,next){
     if(!user){
         return res.status(400).send("Bad Request")
     }
+    req.user = user
     next()
 }
 

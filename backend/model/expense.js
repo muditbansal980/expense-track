@@ -9,6 +9,12 @@ const schema = new mongoose.Schema({
         type:String,
         required:true
     }
+    ,
+    createdby: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }
 },{timestamps:true})
 
 const Expense = mongoose.model("Expense",schema);

@@ -7,7 +7,8 @@ async function handleaddexpense(req,res){
         }
         const expense = await Expense.create({
             title:title,
-            price:price
+            price:price,
+            createdby:req.user._id
         })
         res.status(201).json(expense);
     } catch (error) {
@@ -20,7 +21,7 @@ async function handlegetexpense(req,res){
         const days = req.query.days;
         // const data = await Expense.find({});
         if(days==="all"){
-            const data = await Expense.find({});
+            const data = await Expense.find({createdby:req.user._id});
             return res.status(200).json(data);
         }
         if(days==="0"){
